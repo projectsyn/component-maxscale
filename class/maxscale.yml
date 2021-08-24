@@ -1,0 +1,11 @@
+parameters:
+  kapitan:
+    compile:
+      - input_paths:
+          - maxscale/component/app.jsonnet
+        input_type: jsonnet
+        output_path: apps/
+      - input_paths:
+          - maxscale/component/main.jsonnet
+        input_type: jsonnet
+        output_path: maxscale/

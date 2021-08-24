@@ -1,0 +1,7 @@
+:global:
+  componentName: maxscale
+  githubUrl: https://github.com/projectsyn/component-maxscale
+
+docs/antora.yml:
+  name: maxscale
+  title: maxscale

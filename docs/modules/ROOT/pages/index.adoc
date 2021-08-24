@@ -1,0 +1,5 @@
+= maxscale
+
+maxscale is a Commodore component to manage MariaDB MaxScale.
+
+See the xref:references/parameters.adoc[parameters] reference for further details.

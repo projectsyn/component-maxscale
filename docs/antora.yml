@@ -1,0 +1,6 @@
+name: maxscale
+title: maxscale
+version: master
+start_page: ROOT:index.adoc
+nav:
+  - modules/ROOT/partials/nav.adoc

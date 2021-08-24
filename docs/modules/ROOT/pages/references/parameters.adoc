@@ -1,0 +1,72 @@
+= Parameters
+
+The parent key for all of the following parameters is `maxscale`.
+
+== `namespace`
+
+[horizontal]
+type:: string
+default:: `syn-maxscale`
+
+The namespace in which to deploy this component.
+
+== `master_only_listen_address`
+
+[horizontal]
+type:: string
+default:: `0.0.0.0`
+
+== `read_write_listen_address`
+
+[horizontal]
+type:: string
+default:: `0.0.0.0`
+
+== `db1_address`
+
+[horizontal]
+type:: string
+default:: `db1.mygalera.example.org`
+
+== `db2_address`
+
+[horizontal]
+type:: string
+default:: `db2.mygalera.example.org`
+
+== `db3_address`
+
+[horizontal]
+type:: string
+default:: `db3.mygalera.example.org`
+
+== `service_user`
+
+[horizontal]
+type:: string
+default:: `maxscale`
+
+== `monitor_user`
+
+[horizontal]
+type:: string
+default:: `maxscale`
+
+== `service_pwd`
+
+[horizontal]
+type:: string
+default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/service_pwd}`
+
+== `monitor_pwd`
+
+[horizontal]
+type:: string
+default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/monitor_pwd}`
+
+== Example
+
+[source,yaml]
+----
+namespace: example-namespace
+----
