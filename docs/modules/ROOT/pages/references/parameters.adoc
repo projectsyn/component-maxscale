@@ -28,17 +28,35 @@ default:: `0.0.0.0`
 type:: string
 default:: `db1.mygalera.example.org`
 
+== `db1_port`
+
+[horizontal]
+type:: string
+default:: `3306`
+
 == `db2_address`
 
 [horizontal]
 type:: string
 default:: `db2.mygalera.example.org`
 
+== `db2_port`
+
+[horizontal]
+type:: string
+default:: `3306`
+
 == `db3_address`
 
 [horizontal]
 type:: string
 default:: `db3.mygalera.example.org`
+
+== `db3_port`
+
+[horizontal]
+type:: string
+default:: `3306`
 
 == `service_user`
 
@@ -69,4 +87,13 @@ default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/monitor_pwd}`
 [source,yaml]
 ----
 namespace: example-namespace
+maxscale:
+  db1_address: db5.othergalera.example.org
+  db1_port: 3309
+  db2_address: db6.othergalera.example.org
+  db2_port: 3307
+  db3_address: db7.othergalera.example.org
+  db3_port: 3305
+  monitor_user: mymonitoruser
+  service_user: myserviceuser
 ----
