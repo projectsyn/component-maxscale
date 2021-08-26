@@ -1,7 +1,8 @@
 parameters:
   maxscale:
+    multi_instance: true
     =_metadata: {}
-    namespace: syn-maxscale
+    namespace: syn-${_instance}
     maxscale:
       master_only_listen_address: 0.0.0.0
       read_write_listen_address: 0.0.0.0
@@ -13,8 +14,8 @@ parameters:
       db3_port: 3306
       service_user: maxscale
       monitor_user: maxscale
-      service_pwd: ?{vaultkv:${customer:name}/${cluster:name}/maxscale/service_pwd}
-      monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/maxscale/monitor_pwd}
+      service_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/service_pwd}
+      monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/monitor_pwd}
     images:
       maxscale:
         image: docker.io/mariadb/maxscale
