@@ -75,8 +75,14 @@ local deployment = kube.Deployment('maxscale') {
               initialDelaySeconds: 15,
             },
             resources: {
-              requests: { cpu: '1000m', memory: '128Mi' },
-              limits: { cpu: '2000m', memory: '512Mi' },
+              requests: {
+                cpu: params.containers.resources.requests.cpu,
+                memory: params.containers.resources.requests.memory,
+              },
+              limits: {
+                cpu: params.containers.resources.limits.cpu,
+                memory: params.containers.resources.limits.memory,
+              },
             },
             volumeMounts: [
               {

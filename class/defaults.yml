@@ -16,6 +16,14 @@ parameters:
       monitor_user: maxscale
       service_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/service_pwd}
       monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/monitor_pwd}
+    containers:
+      resources:
+        requests:
+          cpu: 1000m
+          memory: 128Mi
+        limits:
+          cpu: 2000m
+          memory: 512Mi
     images:
       maxscale:
         image: docker.io/mariadb/maxscale

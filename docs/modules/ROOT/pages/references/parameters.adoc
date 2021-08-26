@@ -1,6 +1,6 @@
-= Parameters
+= Maxscale Parameters
 
-The parent key for all of the following parameters is `maxscale`.
+The parent key for the following parameters is `maxscale` and they affect MaxScale itself:
 
 == `namespace`
 
@@ -82,6 +82,37 @@ default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/service_pwd}`
 type:: string
 default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/monitor_pwd}`
 
+
+= Container Parameters
+
+The parent key for the following parameters is `containers` and they affect the MaxScale containers:
+
+
+== `resources.requests.cpu`
+
+[horizontal]
+type:: string
+default:: `1000m`
+
+== `resources.requests.memory`
+
+[horizontal]
+type:: string
+default:: `128Mi`
+
+== `resources.limits.cpu`
+
+[horizontal]
+type:: string
+default:: `2000m`
+
+== `resources.limits.memory`
+
+[horizontal]
+type:: string
+default:: `512Mi`
+
+
 == Example
 
 [source,yaml]
@@ -96,4 +127,12 @@ maxscale:
   db3_port: 3305
   monitor_user: mymonitoruser
   service_user: myserviceuser
+containers:
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 128Mi
+    limits:
+      cpu: 2000m
+      memory: 512Mi
 ----
