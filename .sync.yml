@@ -4,4 +4,4 @@
 
 docs/antora.yml:
   name: maxscale
-  title: maxscale
+  title: MariaDB MaxScale 
