@@ -1,3 +1,6 @@
 # Overwrite parameters here
 
 # parameters: {...}
+---
+parameters:
+  _instance: maxscale
