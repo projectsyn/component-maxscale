@@ -9,7 +9,7 @@ parameters:
       db1_address: db1.mygalera.example.org
       db1_port: 3306
       db2_address: db2.mygalera.example.org
-      db2_port: 3306 
+      db2_port: 3306
       db3_address: db3.mygalera.example.org
       db3_port: 3306
       service_user: maxscale
