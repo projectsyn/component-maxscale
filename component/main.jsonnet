@@ -154,5 +154,5 @@ local configfile = kube.ConfigMap('maxscale-config') {
 
 
 {
-  '10_maxscale': [secret, deployment, service_masteronly, service_rwsplit, configfile],
+  '10_maxscale': [ secret, deployment, service_masteronly, service_rwsplit, configfile ],
 }
