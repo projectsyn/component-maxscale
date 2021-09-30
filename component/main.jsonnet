@@ -148,7 +148,7 @@ local configfile = kube.ConfigMap('maxscale-config') {
     namespace: params.namespace,
   },
   data: {
-    'maxscale.cnf': kap.file_read('maxscale/maxscale.cnf'),
+    'maxscale.cnf': kap.file_read('maxscale/configs/maxscale.cnf'),
   },
 };
 
