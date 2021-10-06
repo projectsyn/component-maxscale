@@ -8,4 +8,4 @@ parameters:
       - input_paths:
           - maxscale/component/main.jsonnet
         input_type: jsonnet
-        output_path: maxscale/
+        output_path: ${_instance}
