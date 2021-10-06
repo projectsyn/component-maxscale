@@ -3,7 +3,14 @@ local kap = import 'lib/kapitan.libjsonnet';
 local kube = import 'lib/kube.libjsonnet';
 local inv = kap.inventory();
 local params = inv.parameters.maxscale;
-local namespace = params.namespace;
+
+local namespace = kube.Namespace(params.namespace) {
+  metadata+: {
+    labels+: {
+      SYNMonitoring: 'main',
+    },
+  },
+};
 
 local secret = kube.Secret('maxscale') {
   metadata+: {
@@ -154,5 +161,6 @@ local configfile = kube.ConfigMap('maxscale-config') {
 
 
 {
+  '00_namespace': namespace,
   '10_maxscale': [ secret, deployment, service_masteronly, service_rwsplit, configfile ],
 }
