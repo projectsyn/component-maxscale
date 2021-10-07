@@ -4,3 +4,17 @@
 ---
 parameters:
   _instance: maxscale
+  maxscale:
+    namespace: maxscale-test
+    master_only_listen_address: 127.0.0.1
+    read_write_listen_address: 127.0.0.1
+    db1_address: db1.mygalera.test.example.org
+    db1_port: 3307
+    db2_address: db2.mygalera.test.example.org
+    db2_port: 3307
+    db3_address: db3.mygalera.test.example.org
+    db3_port: 3307
+    service_user: maxscale-testservice
+    monitor_user: maxscale-testmonitor
+    service_pwd: testservicepwd
+    monitor_pwd: testmonitorpwd
