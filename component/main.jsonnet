@@ -3,7 +3,14 @@ local kap = import 'lib/kapitan.libjsonnet';
 local kube = import 'lib/kube.libjsonnet';
 local inv = kap.inventory();
 local params = inv.parameters.maxscale;
-local namespace = params.namespace;
+
+local namespace = kube.Namespace(params.namespace) {
+  metadata+: {
+    labels+: {
+      SYNMonitoring: 'main',
+    },
+  },
+};
 
 local secret = kube.Secret('maxscale') {
   metadata+: {
@@ -16,8 +23,8 @@ local secret = kube.Secret('maxscale') {
   },
   // Secrets are assumed to be Vault refs
   stringData: {
-    service_pwd: params.maxscale.service_pwd,
-    monitor_pwd: params.maxscale.monitor_pwd,
+    service_pwd: params.service_pwd,
+    monitor_pwd: params.monitor_pwd,
   },
 };
 
@@ -51,18 +58,18 @@ local deployment = kube.Deployment('maxscale') {
             image: params.images.maxscale.image + ':' + params.images.maxscale.tag
             ,
             env_+: std.prune(com.proxyVars {
-              MASTER_ONLY_LISTEN_ADDRESS: params.maxscale.master_only_listen_address,
-              READ_WRITE_LISTEN_ADDRESS: params.maxscale.read_write_listen_address,
-              DB1_ADDRESS: params.maxscale.db1_address,
-              DB1_PORT: params.maxscale.db1_port,
-              DB2_ADDRESS: params.maxscale.db2_address,
-              DB2_PORT: params.maxscale.db2_port,
-              DB3_ADDRESS: params.maxscale.db3_address,
-              DB3_PORT: params.maxscale.db3_port,
-              SERVICE_USER: params.maxscale.service_user,
-              SERVICE_PWD: params.maxscale.service_pwd,
-              MONITOR_USER: params.maxscale.monitor_user,
-              MONITOR_PWD: params.maxscale.monitor_pwd,
+              MASTER_ONLY_LISTEN_ADDRESS: params.master_only_listen_address,
+              READ_WRITE_LISTEN_ADDRESS: params.read_write_listen_address,
+              DB1_ADDRESS: params.db1_address,
+              DB1_PORT: params.db1_port,
+              DB2_ADDRESS: params.db2_address,
+              DB2_PORT: params.db2_port,
+              DB3_ADDRESS: params.db3_address,
+              DB3_PORT: params.db3_port,
+              SERVICE_USER: params.service_user,
+              SERVICE_PWD: params.service_pwd,
+              MONITOR_USER: params.monitor_user,
+              MONITOR_PWD: params.monitor_pwd,
             }),
             ports_+: {
               masteronly: { containerPort: 3306 },
@@ -154,5 +161,6 @@ local configfile = kube.ConfigMap('maxscale-config') {
 
 
 {
+  '00_namespace': namespace,
   '10_maxscale': [ secret, deployment, service_masteronly, service_rwsplit, configfile ],
 }
