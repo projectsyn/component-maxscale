@@ -3,6 +3,38 @@ local kap = import 'lib/kapitan.libjsonnet';
 local kube = import 'lib/kube.libjsonnet';
 local inv = kap.inventory();
 local params = inv.parameters.maxscale;
+local isOnOpenshift = std.startsWith(inv.parameters.facts.distribution, 'openshift');
+
+local serviceaccount = kube.ServiceAccount('maxscale-anyuid') {
+  metadata+: {
+    namespace: params.namespace,
+  },
+};
+
+local role = kube.Role('maxscale-anyuid') {
+  metadata+: {
+    namespace: params.namespace,
+  },
+
+  rules: [ {
+    verbs: [ 'use' ],
+    apiGroups: [ 'security.openshift.io' ],
+    resources: [ 'securitycontextconstraints' ],
+    resourceNames: [ 'anyuid' ],
+  } ],
+};
+
+local rolebinding = kube.RoleBinding('maxscale-anyuid') {
+  metadata+: {
+    namespace: params.namespace,
+  },
+  roleRef+: {
+    apiGroup: 'rbac.authorization.k8s.io',
+    kind: 'Role',
+    name: 'maxscale-anyuid',
+  },
+  subjects_: [ serviceaccount ],
+};
 
 local namespace = kube.Namespace(params.namespace) {
   metadata+: {
@@ -53,6 +85,7 @@ local deployment = kube.Deployment('maxscale') {
   spec+: {
     template+: {
       spec+: {
+        [if isOnOpenshift then 'serviceAccountName']: 'maxscale-anyuid',
         containers_+: {
           maxscale: kube.Container('maxscale') {
             image: params.images.maxscale.image + ':' + params.images.maxscale.tag
@@ -162,5 +195,6 @@ local configfile = kube.ConfigMap('maxscale-config') {
 
 {
   '00_namespace': namespace,
+  [if isOnOpenshift then '01_openshift_security']: [ role, serviceaccount, rolebinding ],
   '10_maxscale': [ secret, deployment, service_masteronly, service_rwsplit, configfile ],
 }
