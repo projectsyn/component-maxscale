@@ -93,7 +93,7 @@ local deployment = kube.Deployment('maxscale') {
             image: params.images.maxscale.image + ':' + params.images.maxscale.tag,
             [if isOnOpenshift then 'command']: [ '/usr/bin/maxscale' ],
             [if isOnOpenshift then 'args']: [ '-d', '-U', 'maxscale', '-l', 'stdout' ],
-            [if isOnOpenshift then 'securityContext']: { runAsUser: 998 },
+            [if isOnOpenshift then 'securityContext']: { runAsUser: 997 },
             env_+: std.prune(com.proxyVars {
               MASTER_ONLY_LISTEN_ADDRESS: params.master_only_listen_address,
               READ_WRITE_LISTEN_ADDRESS: params.read_write_listen_address,
