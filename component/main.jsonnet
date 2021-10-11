@@ -5,13 +5,22 @@ local inv = kap.inventory();
 local params = inv.parameters.maxscale;
 local isOnOpenshift = std.startsWith(inv.parameters.facts.distribution, 'openshift');
 
-local serviceaccount = kube.ServiceAccount('maxscale-anyuid') {
+local namespace = kube.Namespace(params.namespace) {
+  metadata+: {
+    labels+: {
+      SYNMonitoring: 'main',
+    },
+  },
+};
+
+
+local serviceaccount = kube.ServiceAccount('maxscale-uid') {
   metadata+: {
     namespace: params.namespace,
   },
 };
 
-local role = kube.Role('maxscale-anyuid') {
+local role = kube.Role('maxscale-uid') {
   metadata+: {
     namespace: params.namespace,
   },
@@ -20,29 +29,22 @@ local role = kube.Role('maxscale-anyuid') {
     verbs: [ 'use' ],
     apiGroups: [ 'security.openshift.io' ],
     resources: [ 'securitycontextconstraints' ],
-    resourceNames: [ 'anyuid' ],
+    resourceNames: [ 'nonroot' ],
   } ],
 };
 
-local rolebinding = kube.RoleBinding('maxscale-anyuid') {
+local rolebinding = kube.RoleBinding('maxscale-uid') {
   metadata+: {
     namespace: params.namespace,
   },
   roleRef+: {
     apiGroup: 'rbac.authorization.k8s.io',
     kind: 'Role',
-    name: 'maxscale-anyuid',
+    name: 'maxscale-uid',
   },
   subjects_: [ serviceaccount ],
 };
 
-local namespace = kube.Namespace(params.namespace) {
-  metadata+: {
-    labels+: {
-      SYNMonitoring: 'main',
-    },
-  },
-};
 
 local secret = kube.Secret('maxscale') {
   metadata+: {
@@ -85,11 +87,13 @@ local deployment = kube.Deployment('maxscale') {
   spec+: {
     template+: {
       spec+: {
-        [if isOnOpenshift then 'serviceAccountName']: 'maxscale-anyuid',
+        [if isOnOpenshift then 'serviceAccountName']: 'maxscale-uid',
         containers_+: {
           maxscale: kube.Container('maxscale') {
-            image: params.images.maxscale.image + ':' + params.images.maxscale.tag
-            ,
+            image: params.images.maxscale.image + ':' + params.images.maxscale.tag,
+            [if isOnOpenshift then 'command']: [ '/usr/bin/maxscale' ],
+            [if isOnOpenshift then 'args']: [ '-d', '-U', 'maxscale', '-l', 'stdout' ],
+            [if isOnOpenshift then 'securityContext']: { runAsUser: 998 },
             env_+: std.prune(com.proxyVars {
               MASTER_ONLY_LISTEN_ADDRESS: params.master_only_listen_address,
               READ_WRITE_LISTEN_ADDRESS: params.read_write_listen_address,
