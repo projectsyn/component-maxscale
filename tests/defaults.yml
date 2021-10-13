@@ -4,6 +4,8 @@
 ---
 parameters:
   _instance: maxscale
+  facts:
+    distribution: openshift4
   maxscale:
     namespace: maxscale-test
     master_only_listen_address: 127.0.0.1

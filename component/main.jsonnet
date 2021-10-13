@@ -55,8 +55,7 @@ local deployment = kube.Deployment('maxscale') {
       spec+: {
         containers_+: {
           maxscale: kube.Container('maxscale') {
-            image: params.images.maxscale.image + ':' + params.images.maxscale.tag
-            ,
+            image: params.images.maxscale.image + ':' + params.images.maxscale.tag,
             env_+: std.prune(com.proxyVars {
               MASTER_ONLY_LISTEN_ADDRESS: params.master_only_listen_address,
               READ_WRITE_LISTEN_ADDRESS: params.read_write_listen_address,
