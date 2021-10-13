@@ -26,5 +26,5 @@ parameters:
           memory: 512Mi
     images:
       maxscale:
-        image: docker.io/mariadb/maxscale
-        tag: 2.5.15
+        image: gchr.io/appuio/maxscale-docker
+        tag: 6.1.3
