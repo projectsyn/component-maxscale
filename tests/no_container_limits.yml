@@ -3,9 +3,7 @@
 # parameters: {...}
 ---
 parameters:
-  _instance: maxscale
-  facts:
-    distribution: openshift4
+  _instance: maxscale-nolimits
   maxscale:
     namespace: maxscale-test
     master_only_listen_address: 127.0.0.1
@@ -20,11 +18,3 @@ parameters:
     monitor_user: maxscale-testmonitor
     service_pwd: testservicepwd
     monitor_pwd: testmonitorpwd
-  containers:
-    resources:
-      limits:
-        memory: 512Mi
-        cpu: 1234m
-      requests:
-        memory: 1024Mi
-        cpu: 123m
