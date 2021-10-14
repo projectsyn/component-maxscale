@@ -5,7 +5,7 @@
 parameters:
   _instance: maxscale-nolimits
   maxscale:
-    namespace: maxscale-test
+    namespace: maxscale-test-nolimits
     master_only_listen_address: 127.0.0.1
     read_write_listen_address: 127.0.0.1
     db1_address: db1.mygalera.test.example.org

@@ -18,9 +18,8 @@ parameters:
     db3_port: 3307
     service_user: maxscale-testservice
     monitor_user: maxscale-testmonitor
-    service_pwd: testservicepwd
-    monitor_pwd: testmonitorpwd
-  containers:
+    service_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/service_pwd}
+    monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/monitor_pwd}
     resources:
       limits:
         memory: 512Mi

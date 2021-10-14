@@ -63,7 +63,7 @@ test-default: runtest
 test: test-default
 
 .PHONY: runtest
-runtest: commodore_args += -f tests/$(instance).yml
+runtest: commodore_args += -f tests/$(instance).yml -a maxscale-$(instance)
 runtest: .compile ## Compile the component
 
 .PHONY: clean
