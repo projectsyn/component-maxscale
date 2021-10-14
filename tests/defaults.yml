@@ -20,3 +20,11 @@ parameters:
     monitor_user: maxscale-testmonitor
     service_pwd: testservicepwd
     monitor_pwd: testmonitorpwd
+  containers:
+    resources:
+      limits:
+        memory: 512m
+        cpu: 4000m
+      requests:
+        memory: 200m
+        cpu: 1000m

@@ -3,6 +3,7 @@ local kap = import 'lib/kapitan.libjsonnet';
 local kube = import 'lib/kube.libjsonnet';
 local inv = kap.inventory();
 local params = inv.parameters.maxscale;
+local cparams = inv.parameters.containers;
 
 local namespace = kube.Namespace(params.namespace) {
   metadata+: {
@@ -80,14 +81,15 @@ local deployment = kube.Deployment('maxscale') {
               },
               initialDelaySeconds: 15,
             },
-            resources: {
-              requests: {
-                cpu: params.containers.resources.requests.cpu,
-                memory: params.containers.resources.requests.memory,
+            resources+: {
+              [if cparams.resources.requests != null then 'requests']: {
+                [if cparams.resources.requests.cpu != null then 'cpu']: cparams.resources.requests.cpu,
+                [if cparams.resources.requests.memory != null then 'memory']: cparams.resources.requests.memory,
               },
-              limits: {
-                cpu: params.containers.resources.limits.cpu,
-                memory: params.containers.resources.limits.memory,
+              [if cparams.resources.limits != null then 'limits']: {
+
+                [if cparams.resources.limits.cpu != null then 'cpu']: cparams.resources.limits.cpu,
+                [if cparams.resources.limits.memory != null then 'memory']: cparams.resources.limits.memory,
               },
             },
             volumeMounts: [
