@@ -3,7 +3,20 @@ local kap = import 'lib/kapitan.libjsonnet';
 local kube = import 'lib/kube.libjsonnet';
 local inv = kap.inventory();
 local params = inv.parameters.maxscale;
-local cparams = inv.parameters.containers;
+local res = if std.objectHas(params, 'resources') then params.resources else null;
+
+local default_resources = {
+  limits: {
+    cpu: '2000m',
+    memory: '512Mi',
+  },
+  requests: {
+    cpu: '1000m',
+    memory: '128Mi',
+  },
+};
+
+local resources = if res != null then std.mergePatch(default_resources, res) else null;
 
 local namespace = kube.Namespace(params.namespace) {
   metadata+: {
@@ -81,17 +94,7 @@ local deployment = kube.Deployment('maxscale') {
               },
               initialDelaySeconds: 15,
             },
-            resources+: {
-              [if cparams.resources.requests != null then 'requests']: {
-                [if cparams.resources.requests.cpu != null then 'cpu']: cparams.resources.requests.cpu,
-                [if cparams.resources.requests.memory != null then 'memory']: cparams.resources.requests.memory,
-              },
-              [if cparams.resources.limits != null then 'limits']: {
-
-                [if cparams.resources.limits.cpu != null then 'cpu']: cparams.resources.limits.cpu,
-                [if cparams.resources.limits.memory != null then 'memory']: cparams.resources.limits.memory,
-              },
-            },
+            [if resources != null then 'resources']: resources,
             volumeMounts: [
               {
                 name: 'maxscale-cnf-volume',

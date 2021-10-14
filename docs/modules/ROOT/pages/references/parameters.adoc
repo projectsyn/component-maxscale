@@ -83,9 +83,9 @@ type:: string
 default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/monitor_pwd}`
 
 
-= Container Parameters
+= Container Resource Parameters
 
-The parent key for the following parameters is `containers` and they affect the MaxScale containers:
+By default there are no resource limits. As soon as you set *any* of these reource parameters, all the other ones are set to their defaults and you'll have to override them to change them. This prevents generating an invalid manifest.
 
 
 == `resources.requests.cpu`
@@ -127,7 +127,6 @@ maxscale:
   db3_port: 3305
   monitor_user: mymonitoruser
   service_user: myserviceuser
-containers:
   resources:
     requests:
       cpu: 1000m
