@@ -10,6 +10,14 @@ default:: `syn-maxscale`
 
 The namespace in which to deploy this component.
 
+== `replicas`
+
+[horizontal]
+type:: integer
+default:: `2`
+
+How many replicas the deployment has.
+
 == `master_only_listen_address`
 
 [horizontal]
