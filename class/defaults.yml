@@ -17,5 +17,5 @@ parameters:
     monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/monitor_pwd}
     images:
       maxscale:
-        image: gchr.io/appuio/maxscale-docker
+        image: ghcr.io/appuio/maxscale-docker
         tag: 6.1.3
