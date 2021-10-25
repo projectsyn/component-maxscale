@@ -18,14 +18,6 @@ local default_resources = {
 
 local resources = if res != null then std.mergePatch(default_resources, res) else null;
 
-local namespace = kube.Namespace(params.namespace) {
-  metadata+: {
-    labels+: {
-      SYNMonitoring: 'main',
-    },
-  },
-};
-
 local secret = kube.Secret('maxscale') {
   metadata+: {
     namespace: params.namespace,
@@ -166,6 +158,5 @@ local configfile = kube.ConfigMap('maxscale-config') {
 
 
 {
-  '00_namespace': namespace,
   '10_maxscale': [ secret, deployment, service_masteronly, service_rwsplit, configfile ],
 }
