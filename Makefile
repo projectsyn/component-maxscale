@@ -12,6 +12,7 @@ SHELL := bash
 .SUFFIXES:
 
 include Makefile.vars.mk
+include Makefile.additional.mk
 
 .PHONY: help
 help: ## Show this help
@@ -51,20 +52,9 @@ docs-serve: ## Preview the documentation
 	mkdir -p dependencies
 	$(COMMODORE_CMD)
 
-.PHONY: test-nolimits
-test-nolimits: instance = no_container_limits
-test-nolimits: runtest
-
-.PHONY: test-default
-test-default: instance = defaults
-test-default: runtest
-
-.PHONY: test test-default test-nolimits
-test: test-default
-
-.PHONY: runtest
-runtest: commodore_args += -f tests/$(instance).yml -a maxscale-$(instance)
-runtest: .compile ## Compile the component
+.PHONY: test
+test: commodore_args += -f tests/$(instance).yml
+test: .compile ## Compile the component
 
 .PHONY: clean
 clean: ## Clean the project

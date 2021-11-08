@@ -5,3 +5,15 @@
 docs/antora.yml:
   name: maxscale
   title: MariaDB MaxScale
+
+.github/workflows/test.yml:
+  test_makeTarget: test -e instance=${{ matrix.instance }}
+  matrix:
+    key: instance
+    entries:
+      - defaults
+      - no_container_limits
+
+Makefile:
+  includes:
+    - Makefile.additional.mk
