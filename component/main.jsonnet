@@ -73,9 +73,9 @@ local deployment = kube.Deployment('maxscale') {
               DB3_ADDRESS: params.db3_address,
               DB3_PORT: params.db3_port,
               SERVICE_USER: params.service_user,
-              SERVICE_PWD: params.service_pwd,
+              SERVICE_PWD: kube.SecretKeyRef(secret, 'service_pwd'),
               MONITOR_USER: params.monitor_user,
-              MONITOR_PWD: params.monitor_pwd,
+              MONITOR_PWD: kube.SecretKeyRef(secret, 'monitor_pwd'),
             }),
             ports_+: {
               masteronly: { containerPort: 3306 },
