@@ -38,5 +38,3 @@ jobs:
           path: ${{ env.COMPONENT_NAME }}
       - name: Compile component
         run: make test
-      - name: Compile component with no defined resource limits
-        run: make test-nolimits
