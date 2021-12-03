@@ -29,6 +29,11 @@ jobs:
           args: 'check'
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        instance:
+          - defaults
+          - no_container_limits
     defaults:
       run:
         working-directory: ${{ env.COMPONENT_NAME }}
@@ -37,6 +42,4 @@ jobs:
         with:
           path: ${{ env.COMPONENT_NAME }}
       - name: Compile component
-        run: make test
-      - name: Compile component with no defined resource limits
-        run: make test-nolimits
+        run: make test -e instance=${{ matrix.instance }}
