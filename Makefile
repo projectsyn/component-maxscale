@@ -58,4 +58,4 @@ test: .compile ## Compile the component
 
 .PHONY: clean
 clean: ## Clean the project
-	rm -rf compiled dependencies vendor helmcharts jsonnetfile*.json || true
+	rm -rf .cache compiled dependencies vendor helmcharts jsonnetfile*.json || true
