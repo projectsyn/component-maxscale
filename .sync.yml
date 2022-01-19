@@ -7,7 +7,7 @@ docs/antora.yml:
   title: MariaDB MaxScale
 
 .github/workflows/test.yaml:
-  test_makeTarget: test -e instance=${{ matrix.instance }}
+  makeTarget: test -e instance=${{ matrix.instance }}
   matrix:
     key: instance
     entries:
