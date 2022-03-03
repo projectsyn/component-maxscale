@@ -11,3 +11,4 @@ test-default: test
 .PHONY: test-affinity
 test-affinity: instance = affinity
 test-affinity: test
+
