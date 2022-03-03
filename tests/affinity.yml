@@ -1,0 +1,38 @@
+# Overwrite parameters here
+
+# parameters: {...}
+---
+parameters:
+  _instance: maxscale
+  facts:
+    distribution: openshift4
+  maxscale:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: node-role.kubernetes.io/controlplane
+              operator: In
+              values:
+              - "false"
+    namespace: maxscale-test
+    master_only_listen_address: 127.0.0.1
+    read_write_listen_address: 127.0.0.1
+    db1_address: db1.mygalera.test.example.org
+    db1_port: 3307
+    db2_address: db2.mygalera.test.example.org
+    db2_port: 3307
+    db3_address: db3.mygalera.test.example.org
+    db3_port: 3307
+    service_user: maxscale-testservice
+    monitor_user: maxscale-testmonitor
+    service_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/service_pwd}
+    monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/monitor_pwd}
+    resources:
+      limits:
+        memory: 512Mi
+        cpu: 1234m
+      requests:
+        memory: 1024Mi
+        cpu: 123m

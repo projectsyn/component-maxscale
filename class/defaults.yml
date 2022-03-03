@@ -16,6 +16,7 @@ parameters:
     service_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/service_pwd}
     monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/monitor_pwd}
     replicas: 2
+    affinity: {}
     images:
       maxscale:
         image: ghcr.io/appuio/maxscale-docker

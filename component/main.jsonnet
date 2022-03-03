@@ -60,6 +60,7 @@ local deployment = kube.Deployment('maxscale') {
     replicas: params.replicas,
     template+: {
       spec+: {
+        affinity: params.affinity,
         containers_+: {
           maxscale: kube.Container('maxscale') {
             image: params.images.maxscale.image + ':' + params.images.maxscale.tag,
