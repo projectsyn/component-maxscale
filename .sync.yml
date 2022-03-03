@@ -13,6 +13,7 @@ docs/antora.yml:
     entries:
       - defaults
       - no_container_limits
+      - affinity
 
 Makefile:
   includes:

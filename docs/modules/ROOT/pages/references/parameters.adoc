@@ -90,6 +90,27 @@ default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/service_pwd}`
 type:: string
 default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/monitor_pwd}`
 
+= Pod Affinity Parameters
+
+By default, `affinity` is set to `{}` so the pods get no specific affinity. You can override this freely to [choose any pod affinity rules](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+
+[horizontal]
+type:: hash
+default:: `{}`
+
+```yaml
+parameters:
+  maxscale:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: node-role.kubernetes.io/controlplane
+              operator: In
+              values:
+              - "false"
+```
 
 = Container Resource Parameters
 

@@ -7,3 +7,8 @@ test-nolimits: test
 .PHONY: test-default
 test-default: instance = defaults
 test-default: test
+
+.PHONY: test-affinity
+test-affinity: instance = affinity
+test-affinity: test
+
