@@ -1,7 +1,7 @@
 parameters:
   maxscale:
-    multi_instance: true
-    =_metadata: {}
+    =_metadata:
+      multi_instance: true
     namespace: syn-${_instance}
     master_only_listen_address: 0.0.0.0
     read_write_listen_address: 0.0.0.0
