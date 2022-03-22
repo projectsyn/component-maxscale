@@ -1,6 +1,12 @@
 :global:
   componentName: maxscale
   githubUrl: https://github.com/projectsyn/component-maxscale
+  testMatrix:
+    key: instance
+    entries:
+      - defaults
+      - no_container_limits
+      - affinity
 
 docs/antora.yml:
   name: maxscale
@@ -8,13 +14,6 @@ docs/antora.yml:
 
 .github/workflows/test.yaml:
   makeTarget: test -e instance=${{ matrix.instance }}
-  matrix:
-    key: instance
-    entries:
-      - defaults
-      - no_container_limits
-      - affinity
-
 Makefile:
   includes:
     - Makefile.additional.mk
