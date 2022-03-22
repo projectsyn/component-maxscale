@@ -34,6 +34,7 @@ jobs:
         instance:
           - defaults
           - no_container_limits
+          - affinity
     defaults:
       run:
         working-directory: ${{ env.COMPONENT_NAME }}
