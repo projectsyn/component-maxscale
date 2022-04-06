@@ -13,8 +13,8 @@ parameters:
     db3_port: 3306
     service_user: maxscale
     monitor_user: maxscale
-    service_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/service_pwd}
-    monitor_pwd: ?{vaultkv:${customer:name}/${cluster:name}/${_instance}/monitor_pwd}
+    service_pwd: ?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/service_pwd}
+    monitor_pwd: ?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/monitor_pwd}
     replicas: 2
     affinity: {}
     images:

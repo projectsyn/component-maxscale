@@ -82,13 +82,13 @@ default:: `maxscale`
 
 [horizontal]
 type:: string
-default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/service_pwd}`
+default:: `?{vaultkv:${cluster:tenant}/${cluster:name}/maxscale/service_pwd}`
 
 == `monitor_pwd`
 
 [horizontal]
 type:: string
-default:: `?{vaultkv:${customer:name}/${cluster:name}/maxscale/monitor_pwd}`
+default:: `?{vaultkv:${cluster:tenant}/${cluster:name}/maxscale/monitor_pwd}`
 
 = Pod Affinity Parameters
 
