@@ -1,5 +1,5 @@
 :global:
-  componentName: maxscale
+  componentName: MariaDB MaxScale
   githubUrl: https://github.com/projectsyn/component-maxscale
   testMatrix:
     key: instance
@@ -7,10 +7,6 @@
       - defaults
       - no_container_limits
       - affinity
-
-docs/antora.yml:
-  name: maxscale
-  title: MariaDB MaxScale
 
 .github/workflows/test.yaml:
   makeTarget: test -e instance=${{ matrix.instance }}
