@@ -1,0 +1,21 @@
+{
+  "template": "https://github.com/projectsyn/commodore-component-template.git",
+  "commit": "e6c4fd69190db1ad12e941d578b9423d0e2f993c",
+  "checkout": "main",
+  "context": {
+    "cookiecutter": {
+      "name": "MariaDB MaxScale",
+      "slug": "maxscale",
+      "parameter_key": "maxscale",
+      "test_cases": "defaults no_container_limits affinity",
+      "add_golden": "n",
+      "add_matrix": "y",
+      "add_go_unit": "n",
+      "github_owner": "projectsyn",
+      "github_name": "component-maxscale",
+      "github_url": "https://github.com/projectsyn/component-maxscale",
+      "_template": "https://github.com/projectsyn/commodore-component-template.git"
+    }
+  },
+  "directory": null
+}
