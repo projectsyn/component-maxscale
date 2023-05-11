@@ -20,4 +20,4 @@ parameters:
     images:
       maxscale:
         image: ghcr.io/appuio/maxscale-docker
-        tag: 6.1.3
+        tag: 6.4.6
