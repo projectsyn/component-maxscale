@@ -4,7 +4,7 @@ parameters:
       - input_paths:
           - maxscale/component/app.jsonnet
         input_type: jsonnet
-        output_path: apps/
+        output_path: .
       - input_paths:
           - maxscale/component/main.jsonnet
         input_type: jsonnet
