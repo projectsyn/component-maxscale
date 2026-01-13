@@ -20,6 +20,8 @@ parameters:
     monitor_user: maxscale-testmonitor
     service_pwd: ?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/service_pwd}
     monitor_pwd: ?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/monitor_pwd}
+    master_failure_mode: fail_instantly
+    master_reconnection: false
     resources:
       limits:
         memory: 512Mi

@@ -11,6 +11,8 @@ router=readwritesplit
 servers=db1,db2,db3
 type=service
 user=$SERVICE_USER
+master_failure_mode=$MASTER_FAILURE_MODE
+master_reconnection=$MASTER_RECONNECTION
 
 [ReadWriteSplit-Listener]
 address=$READ_WRITE_LISTEN_ADDRESS
@@ -63,26 +65,3 @@ address=$DB3_ADDRESS
 port=$DB3_PORT
 protocol=MariaDBBackend
 priority=3
-
-#[MaxInfo]
-#type=service
-#router=maxinfo
-#user=monitor
-#password=$SERVICE_PWD
-#
-#[MaxInfo-JSON-Listener]
-#type=listener
-#service=MaxInfo
-#protocol=HTTPD
-#port=8003
-#
-#[CLI]
-#type=service
-#router=cli
-#
-#[CLI-Listener]
-#type=listener
-#service=CLI
-#protocol=maxscaled
-#socket=default
-

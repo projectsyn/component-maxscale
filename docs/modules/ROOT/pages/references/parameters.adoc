@@ -90,6 +90,23 @@ default:: `?{vaultkv:${cluster:tenant}/${cluster:name}/maxscale/service_pwd}`
 type:: string
 default:: `?{vaultkv:${cluster:tenant}/${cluster:name}/maxscale/monitor_pwd}`
 
+== `master_failure_mode`
+
+Controls behavior of the readwritesplit router module on master failure, see [upstream documentation](https://mariadb.com/kb/en/mariadb-maxscale-6-readwritesplit/#master_failure_mode).
+
+[horizontal]
+type:: string
+default:: `fail_instantly`
+
+== `master_reconnection`
+
+Whether the readwritesplit router module allows the master server to change mid-session, see [upstream documentation](https://mariadb.com/kb/en/mariadb-maxscale-6-readwritesplit/#master_reconnection).
+
+[horizontal]
+type:: boolean
+default:: `false`
+
+
 = Pod Affinity Parameters
 
 By default, `affinity` is set to `{}` so the pods get no specific affinity. You can override this freely to [choose any pod affinity rules](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
