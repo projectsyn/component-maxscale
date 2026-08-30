@@ -77,6 +77,8 @@ local deployment = kube.Deployment('maxscale') {
               SERVICE_PWD: kube.SecretKeyRef(secret, 'service_pwd'),
               MONITOR_USER: params.monitor_user,
               MONITOR_PWD: kube.SecretKeyRef(secret, 'monitor_pwd'),
+              MASTER_FAILURE_MODE: params.master_failure_mode,
+              MASTER_RECONNECTION: params.master_reconnection,
             }),
             ports_+: {
               masteronly: { containerPort: 3306 },
